@@ -20,7 +20,7 @@ fi
 if [[ -z "$DOWNSTREAM_BRANCH" ]]; then
   echo "Missing \$DOWNSTREAM_BRANCH"
   echo "Default to ${UPSTREAM_BRANCH}"
-  DOWNSTREAM_BREANCH=UPSTREAM_BRANCH
+  DOWNSTREAM_BRANCH=$UPSTREAM_BRANCH
 fi
 
 if ! echo "$UPSTREAM_REPO" | grep '\.git'; then
@@ -45,6 +45,7 @@ fi
 git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git config --local user.password ${GITHUB_TOKEN}
+git config checkout.defaultRemote origin
 
 git remote add upstream "$UPSTREAM_REPO"
 git fetch ${FETCH_ARGS} upstream
