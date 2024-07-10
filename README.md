@@ -2,7 +2,7 @@
 
 This is a Github Action used to merge changes from remote.  
 
-This is forked from [dabreadman](https://github.com/dabreadman/sync-upstream-repo), with me adding optional parameter of downstream repo URL. Now this action can run from a third repo and sync upstream repo to provided downstream repo.
+This is forked from [mheene](https://github.com/mheene/sync-upstream-repo), with me adding authentication using [GitHub Token](https://docs.github.com/en/actions/reference/authentication-in-a-workflow) and downstream branch options due to the [default branch naming changes](https://github.com/github/renaming).
 
 ## Use case
 
@@ -24,8 +24,6 @@ env:
   WORKFLOW_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
   # Optional, defaults to main
   UPSTREAM_BRANCH: "main"
-  # Optional, defaults to current repo
-  DOWNSTREAM_URL: "https://github.com/dchourasia/sync-upstream-repo"
   # Optional, defaults to UPSTREAM_BRANCH
   DOWNSTREAM_BRANCH: ""
   # Optional fetch arguments
@@ -49,11 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: GitHub Sync to Upstream Repository
-        uses: dchourasia/sync-upstream-repo@main
+        uses: dabreadman/sync-upstream-repo@v1.3.0
         with: 
           upstream_repo: ${{ env.UPSTREAM_URL }}
           upstream_branch: ${{ env.UPSTREAM_BRANCH }}
-          downstream_repo: ${{ env.DOWNSTREAM_URL }}
           downstream_branch: ${{ env.DOWNSTREAM_BRANCH }}
           token: ${{ env.WORKFLOW_TOKEN }}
           fetch_args: ${{ env.FETCH_ARGS }}
